@@ -1,3 +1,5 @@
+
+
 /**
  * Implement a bank class.
  * <p>
@@ -8,9 +10,15 @@
  * @see <a href="https://cs125.cs.illinois.edu/lab/8/">Lab 8 Description</a>
  */
 public class Bank {
-
+    /**
+     * Name of bank.
+     */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     public String bankName;
 
+    /**
+     * Constructs a new bank and names it Illini Bank.
+     */
     public Bank() {
         bankName = "Illini Bank";
     }
@@ -29,6 +37,14 @@ public class Bank {
         /*
          * Implement this function
          */
+        double a = bankAccount.getAccountBalance();
+        bankAccount.setAccountBalance(a - amount);
+        double balance = bankAccount.getAccountBalance();
+        if (balance == a - amount) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -45,7 +61,16 @@ public class Bank {
         /*
          * Implement this function
          */
+        double a = bankAccount.getAccountBalance();
+        bankAccount.setAccountBalance(a + amount);
+        double balance = bankAccount.getAccountBalance();
+        if (balance == a + amount) {
+            return true;
+        } else {
+            return false;
+        }
     }
+
 
     /**
      * Transfer money from one account to another.
@@ -64,6 +89,19 @@ public class Bank {
         /*
          * Implement this function
          */
+        double balance1 = source.getAccountBalance();
+        double balance2 = destination.getAccountBalance();
+        double newBalance1 = balance1 - amount;
+        double newBalance2 = balance2 + amount;
+        source.setAccountBalance(newBalance1);
+        destination.setAccountBalance(newBalance2);
+        double checker1 = source.getAccountBalance();
+        double checker2 = destination.getAccountBalance();
+        if (checker1 == newBalance1 && checker2 == newBalance2) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -77,8 +115,12 @@ public class Bank {
         /*
          * Implement this function
          */
+        bankAccount.setOwnerName(name);
     }
-
+    /**
+     * Number of accounts.
+     */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     public static int totalAccounts = 0;
     /**
      * Uses static variable to get number of bank accounts opened.
@@ -89,6 +131,7 @@ public class Bank {
         /*
          * Implement this function
          */
+        return totalAccounts;
     }
 
     /**
@@ -103,10 +146,10 @@ public class Bank {
         System.out.println("We are excited to have you banking with us!\n\n");
 
         // Create Bank Accounts
-        BankAccount account1 = new BankAccount("John Doe", BankAccountType.CHECKINGS);
+        BankAccount account1 = new BankAccount("John Doe", BankAccount.BankAccountType.CHECKINGS);
         System.out.println("Bank account for John Doe created");
 
-        BankAccount account2 = new BankAccount("Jony Ive", BankAccountType.STUDENT);
+        BankAccount account2 = new BankAccount("Jony Ive", BankAccount.BankAccountType.STUDENT);
         System.out.println("Bank account for Johy Ive created\n\n");
 
         // Deposit money to both accounts and print new balance
